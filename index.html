@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Death Note Address Book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1><i class="fas fa-book"></i> Death Note Address Book</h1>
+      <div class="container-2">
+        <h2>Entries</h2>
+        <div class="searchbox">
+          <i class="fas fa-search"></i>
+          <input type="text" name="search" id="search" placeholder="Search here" />
+        </div>
+      </div>
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="container-3">
+        <h2>Create new entry</h2>
+        <div>
+          <div class="box">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" />
+          </div>
+          <div class="box">
+            <label for="address">Address: </label>
+            <input type="text" name="address" id="address" />
+          </div>
+          <div class="box">
+            <label for="phone">Phone: </label>
+            <input type="tel" name="phone" id="phone" />
+          </div>
+          <div class="box">
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email" />
+          </div>
+          <button id="add-entry-btn"><i class="fas fa-plus"></i> Add entry</button>
+          <button id="save-entry-btn">Save entry</button>
+        </div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
