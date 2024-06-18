@@ -1,119 +1,87 @@
-const nameInput = document.getElementById('name');
-const addressInput = document.getElementById('address');
-const phoneInput = document.getElementById('phone');
-const emailInput = document.getElementById('email');
-const addEntryBtn = document.getElementById('add-entry-btn');
-const saveEntryBtn = document.getElementById('save-entry-btn');
+const taskInput = document.getElementById('task');
+const addTaskBtn = document.getElementById('add-task-btn');
+const saveTaskBtn = document.getElementById('save-task-btn');
 const tableBody = document.querySelector('#table tbody');
 
-// Address book array
-let addressBook = JSON.parse(localStorage.getItem('addressBook')) || [];
-let editingEntryIndex = null;
+// Task list array
+let taskList = JSON.parse(localStorage.getItem('taskList')) || [];
+let editingTaskIndex = null;
 
-function displayAddressBook(entries = addressBook) {
+function displayTaskList(tasks = taskList) {
   tableBody.innerHTML = '';
 
-  entries.forEach(function (entry, index) {
+  tasks.forEach(function (task, index) {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${entry.name}</td>
-      <td>${entry.address}</td>
-      <td>${entry.phone}</td>
-      <td>${entry.email}</td>
+      <td>${task}</td>
       <td>
-        <button onclick="editEntry(${index})"><i class="fas fa-edit"></i> Edit</button>
-        <button onclick="deleteEntry('${entry.email}')"><i class="fas fa-trash-alt"></i> Delete</button>
+        <button onclick="editTask(${index})"><i class="fas fa-edit"></i> Edit</button>
+        <button onclick="deleteTask(${index})"><i class="fas fa-trash-alt"></i> Delete</button>
       </td>
     `;
-    row.dataset.entryId = index;
+    row.dataset.taskId = index;
     tableBody.appendChild(row);
   });
 }
 
-// Add a new entry to the address book
-function addEntry() {
-  const name = nameInput.value.trim();
-  const address = addressInput.value.trim();
-  const phone = phoneInput.value.trim();
-  const email = emailInput.value.trim();
+// Add a new task to the task list
+function addTask() {
+  const task = taskInput.value.trim();
 
-  if (name === '' || address === '' || phone === '' || email === '') {
-    alert('Please fill in all fields');
+  if (task === '') {
+    alert('Please enter a task');
     return;
   }
 
-  const newEntry = {
-    name,
-    address,
-    phone,
-    email,
-  };
-
-  if (editingEntryIndex !== null) {
-    addressBook[editingEntryIndex] = newEntry;
-    editingEntryIndex = null;
-    addEntryBtn.style.display = 'block';
-    saveEntryBtn.style.display = 'none';
+  if (editingTaskIndex !== null) {
+    taskList[editingTaskIndex] = task;
+    editingTaskIndex = null;
+    addTaskBtn.style.display = 'block';
+    saveTaskBtn.style.display = 'none';
   } else {
-    addressBook.push(newEntry);
+    taskList.push(task);
   }
 
-  displayAddressBook();
-  clearInputFields();
-  saveAddressBookToLocalStorage();
+  displayTaskList();
+  clearInputField();
+  saveTaskListToLocalStorage();
 }
 
-// Function to clear the input fields after an entry is added
-function clearInputFields() {
-  nameInput.value = '';
-  addressInput.value = '';
-  phoneInput.value = '';
-  emailInput.value = '';
+// Function to clear the input field after a task is added
+function clearInputField() {
+  taskInput.value = '';
 }
 
-// Function to delete an entry from the address book
-function deleteEntry(email) {
-  const entryIndex = addressBook.findIndex((entry) => entry.email === email);
-
-  if (entryIndex !== -1) {
-    addressBook.splice(entryIndex, 1);
-    displayAddressBook();
-    saveAddressBookToLocalStorage();
-  }
+// Function to delete a task from the task list
+function deleteTask(taskIndex) {
+  taskList.splice(taskIndex, 1);
+  displayTaskList();
+  saveTaskListToLocalStorage();
 }
 
-// Function to edit an entry in the address book
-function editEntry(entryIndex) {
-  const entry = addressBook[entryIndex];
+// Function to edit a task in the task list
+function editTask(taskIndex) {
+  const task = taskList[taskIndex];
 
-  nameInput.value = entry.name;
-  addressInput.value = entry.address;
-  phoneInput.value = entry.phone;
-  emailInput.value = entry.email;
+  taskInput.value = task;
 
-  editingEntryIndex = entryIndex;
-  addEntryBtn.style.display = 'none';
-  saveEntryBtn.style.display = 'block';
+  editingTaskIndex = taskIndex;
+  addTaskBtn.style.display = 'none';
+  saveTaskBtn.style.display = 'block';
 }
 
-// Search Functionality
+// Search functionality
 function handleSearch() {
   const searchTerm = searchInput.value.trim().toLowerCase();
 
   if (searchTerm === '') {
-    displayAddressBook();
+    displayTaskList();
     return;
   }
 
-  const filteredEntries = addressBook.filter(
-    (entry) =>
-      entry.name.toLowerCase().includes(searchTerm) ||
-      entry.address.toLowerCase().includes(searchTerm) ||
-      entry.phone.toLowerCase().includes(searchTerm) ||
-      entry.email.toLowerCase().includes(searchTerm)
-  );
+  const filteredTasks = taskList.filter((task) => task.toLowerCase().includes(searchTerm));
 
-  displayAddressBook(filteredEntries);
+  displayTaskList(filteredTasks);
 }
 
 // Input field for search
@@ -121,14 +89,21 @@ const searchInput = document.getElementById('search');
 
 searchInput.addEventListener('input', handleSearch);
 
-addEntryBtn.addEventListener('click', addEntry);
+addTaskBtn.addEventListener('click', addTask);
 
-saveEntryBtn.addEventListener('click', addEntry);
+saveTaskBtn.addEventListener('click', addTask);
 
-// Save the address book data to local storage to store the content so that content does not erase on reload
-function saveAddressBookToLocalStorage() {
-  localStorage.setItem('addressBook', JSON.stringify(addressBook));
+// Add task using the Enter key
+taskInput.addEventListener('keypress', function(event) {
+  if (event.key === 'Enter') {
+    addTask();
+  }
+});
+
+// Save the task list data to local storage
+function saveTaskListToLocalStorage() {
+  localStorage.setItem('taskList', JSON.stringify(taskList));
 }
 
-// Initial display of the address book
-displayAddressBook();
+// Initial display of the task list
+displayTaskList();
