@@ -110,13 +110,15 @@ export function ContactForm({ onSubmit, editingContact, onCancel }) {
           )}
         </div>
         <h2 className="text-lg font-semibold text-gray-900">
+        </h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           {editingContact ? 'Edit Contact' : 'Add New Contact'}
         </h2>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Full Name
           </label>
           <input
@@ -134,7 +136,7 @@ export function ContactForm({ onSubmit, editingContact, onCancel }) {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Email Address
           </label>
           <input
@@ -152,7 +154,7 @@ export function ContactForm({ onSubmit, editingContact, onCancel }) {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Phone Number
           </label>
           <input
@@ -170,7 +172,7 @@ export function ContactForm({ onSubmit, editingContact, onCancel }) {
         </div>
 
         <div>
-          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Address
           </label>
           <textarea

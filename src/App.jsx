@@ -5,6 +5,7 @@ import { ContactList } from './components/ContactList'
 import { SearchBar } from './components/SearchBar'
 import { Header } from './components/Header'
 import { EmptyState } from './components/EmptyState'
+import { Footer } from './components/Footer'
 
 function App() {
   const [contacts, setContacts] = useState([])
@@ -69,10 +70,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200 flex flex-col">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-1">
@@ -88,10 +89,10 @@ function App() {
             <div className="card">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                     Contacts
                   </h2>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                     {contacts.length} {contacts.length === 1 ? 'contact' : 'contacts'} total
                   </p>
                 </div>
@@ -117,6 +118,8 @@ function App() {
           </div>
         </div>
       </main>
+      
+      <Footer />
     </div>
   )
 }
